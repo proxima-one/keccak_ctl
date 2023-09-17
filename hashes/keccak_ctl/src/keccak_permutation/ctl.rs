@@ -3,8 +3,8 @@ use plonky2_field::types::Field;
 use starky_ctl::cross_table_lookup::Column;
 
 use super::{
-    columns::{reg_input_limb, reg_output_limb, REG_FILTER},
-    keccak_permutation_stark::NUM_INPUTS,
+    columns::{reg_input_limb, reg_output_limb, reg_step},
+    keccak_permutation_stark::{NUM_INPUTS, NUM_ROUNDS},
 };
 
 pub fn ctl_data<F: Field>() -> Vec<Column<F>> {
@@ -14,6 +14,6 @@ pub fn ctl_data<F: Field>() -> Vec<Column<F>> {
 }
 
 pub fn ctl_filter<F: Field>() -> Column<F> {
-    let res = Column::single(REG_FILTER);
+    let res = Column::single(reg_step(NUM_ROUNDS - 1));
     res
 }
